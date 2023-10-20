@@ -13,8 +13,8 @@ public class Menu {
     }
     public static void numError(){
         try {
-            System.out.println("\n##번호 입력 오류! 첫 화면으로 돌아갑니다.##\n");
-            Thread.sleep(1500);
+            System.out.println("##번호 입력 오류!##");
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

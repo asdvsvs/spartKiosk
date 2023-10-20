@@ -11,7 +11,7 @@ public class Main {
             Menu.menuScreen();
 
             inputNum = sc.nextInt();
-            if(5<inputNum) {
+            if(inputNum<-1 || 5<inputNum) {
                 Menu.numError();
                 continue;
             }

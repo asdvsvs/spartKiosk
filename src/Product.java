@@ -14,28 +14,33 @@ public class Product extends Menu{
     public static void selectProduct(String productName, float price, String explanation){
         Scanner sc = new Scanner(System.in);
         Product product = new Product(productName,price,explanation);
-
         if(Product.category.contains("피자")){    /* <--이렇게도 가능--> if(productName.contains("피자"))*/
-            System.out.println("    위 메뉴의 어떤 옵션으로 추가하시겠습니까?");
-            System.out.printf("\t1.기본(W %.1f)\t2.치즈 추가(+W 2.0)\t3.토핑 추가(+W 3.0)\n",price);
-            switch (sc.nextInt()){
-                case 1 : product.menuName=productName+"(기본)     ";    product.price=price;     break;
-                case 2 : product.menuName=productName+"(치즈 추가)";    product.price=price+2;    break;
-                case 3 : product.menuName=productName+"(토핑 추가)";    product.price=price+3;    break;
+            Loop :
+            while (true){
+                System.out.println("---------------------------------------------------");
+                System.out.printf("\t%d. %s | W %.1f | %s\n", menuNum,product.menuName,product.price,explanation);
+                System.out.println("    위 메뉴의 어떤 옵션으로 추가하시겠습니까?");
+                System.out.printf("\t1.기본(W %.1f)\t2.치즈 추가(+W 2.0)\t3.토핑 추가(+W 3.0)\n",price);
+                int inputNum = sc.nextInt();
+                if(inputNum<1 || 3<inputNum) {
+                    numError();
+                    continue;
+                }
+                switch (inputNum){
+                    case 1 : product.menuName=productName+"(기본)     ";    product.price=price;     break Loop;
+                    case 2 : product.menuName=productName+"(치즈 추가)";    product.price=price+2;    break Loop;
+                    case 3 : product.menuName=productName+"(토핑 추가)";    product.price=price+3;    break Loop;
+                }
             }
-            System.out.println();
         }
-
+        System.out.println("---------------------------------------------------");
         System.out.printf("\t%d. %s | W %.1f | %s\n", menuNum,product.menuName,product.price,explanation);
-
         System.out.println("\t위 메뉴를 장바구니에 추가하시겠습니까?");
-        System.out.println("  1.확인        2.취소");
-        int check = sc.nextInt();
-        if(check==1) {
+        System.out.println("\t1.확인        2.취소");
+        if(sc.nextInt()==1) {
             Order.addOrder(product.menuName, product.price,product.explanation);
             System.out.println("장바구니에 추가 되었습니다.");
         }
-//        else if (check>2) Menu.numError();
     }
 
     public static void setProduct(int num){
@@ -79,13 +84,13 @@ public class Product extends Menu{
         System.out.println();
         System.out.print("메뉴 번호 입력 : ");
 
-        int productNum = sc.nextInt();
+        int productNum;
+        while (true){
+            productNum = sc.nextInt();
+            if(0<productNum && productNum<=product.size()) break;
+            else numError();
+        }
         Menu.menuNum = productNum;
-        System.out.println("---------------------------------------------------");
         if(product.containsKey(productNum)) selectProduct(product.get(productNum).menuName,product.get(productNum).price,product.get(productNum).explanation);
     }
-
-
-
-
 }
