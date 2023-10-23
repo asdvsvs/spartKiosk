@@ -3,12 +3,14 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        Menu menu = new Menu("", "");
+        Product product = new Product("",0,"");
+        Order order = new Order("", 0, "");
         int inputNum;
-
         Loop :
         while (true) {
-            Menu.setMenu();
-            Menu.menuScreen();
+            menu.setMenu();
+            menu.menuScreen();
 
             inputNum = sc.nextInt();
             if(inputNum<-1 || 5<inputNum) {
@@ -17,15 +19,15 @@ public class Main {
             }
             switch (inputNum){
                 case 1,2,3 :
-                    Product.setProduct(inputNum);
-                    Product.productScreen();
+                    product.setProduct(inputNum);
+                    product.productScreen();
                     break;
                 case 4 :
-                    Order.showOrders();
-                    Order.orderComplete();
+                    order.showOrders();
+                    order.orderComplete();
                     break;
-                case 5 : Order.orderCancel();break;
-                case 0 : Order.showTotalSale();break;
+                case 5 : order.orderCancel();break;
+                case 0 : order.showTotalSale();break;
                 case -1 : break Loop;
             }
 

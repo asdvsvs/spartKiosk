@@ -19,7 +19,7 @@ public class Menu {
             throw new RuntimeException(e);
         }
     }
-    public static void setMenu(){
+    public void setMenu(){
         Menu menu1 = new Menu("피자   ", "스파르타식 피자 (옵션 선택)");
         Menu menu2 = new Menu("사이드  ", "스파르타식 사이드");
         Menu menu3 = new Menu("음료   ", "스파르타식 음료");
@@ -32,7 +32,7 @@ public class Menu {
         menu.put(5, menu5);
     }
 
-    public static void menuScreen(){
+    public void menuScreen(){
         Menu.menuNum = 1;
         System.out.println("---------------------------------------------------");
         System.out.println("\"스파르타 피자 에 오신걸 환영합니다.\"");

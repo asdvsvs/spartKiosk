@@ -3,19 +3,19 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Order extends Product {
-    static float totalOrderPrice;
-    static float totalSalePrice;
+    float totalOrderPrice;
+    float totalSalePrice;
     static int orderNum=1;
-    static ArrayList<String> orders = new ArrayList<>();
-    static ArrayList<String> tempOrders = new ArrayList<>();
-    static ArrayList<String> totalOrders = new ArrayList<>();
-    static Scanner sc = new Scanner(System.in);
-    static HashMap<String, Integer> menuCnt = new HashMap<String, Integer>();
+    ArrayList<String> orders = new ArrayList<>();
+    ArrayList<String> tempOrders = new ArrayList<>();
+    ArrayList<String> totalOrders = new ArrayList<>();
+    Scanner sc = new Scanner(System.in);
+    HashMap<String, Integer> menuCnt = new HashMap<String, Integer>();
     public Order(String menuName, float price, String explanation) {
         super(menuName, price, explanation);
     }
-    //스트링 말고 각각 저장, 혹은 가격을 플로트 그대로 저장하는 방법이 있을까?
-    public static void addOrder(String menuName, float price, String explanation){
+
+    public void addOrder(String menuName, float price, String explanation){
         if(menuCnt.get(menuName)==null) {
             menuCnt.put(menuName,1);
             orders.add(menuName+ " | " +price+ " |  "+menuCnt.get(menuName)+ "개 |  " +explanation);
@@ -35,7 +35,7 @@ public class Order extends Product {
         tempOrders.add(" - "+menuName+" | W "+price);
     }
 
-    public static void showOrders(){
+    public void showOrders(){
         System.out.println("---------------------------------------------------");
         System.out.println("아래와 같이 주문 하시겠습니까?");
         System.out.println("[ 장바구니 ]");
@@ -49,7 +49,7 @@ public class Order extends Product {
         System.out.println("1. 주문       2. 메뉴판");
     }
 
-    public static void orderComplete(){
+    public void orderComplete(){
         int second=3;
         if(sc.nextInt()==1){
             System.out.println("주문이 완료되었습니다!");
@@ -75,7 +75,7 @@ public class Order extends Product {
         }
     }
 
-    public static void orderCancel(){
+    public void orderCancel(){
         int num;
         System.out.println("---------------------------------------------------");
         System.out.println("진행하던 주문을 취소하시겠습니까?");
@@ -89,7 +89,7 @@ public class Order extends Product {
         }
     }
 
-    public static void showTotalSale(){
+    public void showTotalSale(){
         System.out.println("---------------------------------------------------");
         System.out.println("[ 총 판매금액 현황 ]");
         System.out.printf("현재까지 총 판매된 금액은[ W %.1f ] 입니다.\n\n",totalSalePrice);
