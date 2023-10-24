@@ -10,7 +10,7 @@ public class Order extends Product {
     static ArrayList<String> tempOrders = new ArrayList<>();
     static ArrayList<String> totalOrders = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
-    HashMap<String, Integer> menuCnt = new HashMap<String, Integer>();
+    static HashMap<String, Integer> menuCnt = new HashMap<String, Integer>();
     public Order(String menuName, float price, String explanation) {
         super(menuName, price, explanation);
     }
