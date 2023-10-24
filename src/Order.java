@@ -3,12 +3,12 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Order extends Product {
-    float totalOrderPrice;
-    float totalSalePrice;
+    static float totalOrderPrice;
+    static float totalSalePrice;
     static int orderNum=1;
-    ArrayList<String> orders = new ArrayList<>();
-    ArrayList<String> tempOrders = new ArrayList<>();
-    ArrayList<String> totalOrders = new ArrayList<>();
+    static ArrayList<String> orders = new ArrayList<>();
+    static ArrayList<String> tempOrders = new ArrayList<>();
+    static ArrayList<String> totalOrders = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
     HashMap<String, Integer> menuCnt = new HashMap<String, Integer>();
     public Order(String menuName, float price, String explanation) {
