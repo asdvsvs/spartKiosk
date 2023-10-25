@@ -11,9 +11,7 @@ public class Order extends Product {
     static ArrayList<String> totalOrders = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
     static HashMap<String, Integer> menuCnt = new HashMap<String, Integer>();
-    public Order(String menuName, float price, String explanation) {
-        super(menuName, price, explanation);
-    }
+
 
     public void addOrder(String menuName, float price, String explanation){
         if(menuCnt.get(menuName)==null) {

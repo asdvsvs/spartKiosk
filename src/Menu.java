@@ -4,10 +4,13 @@ public class Menu {
      String menuName;
      String explanation;
      static int menuNum;
+     int menuId=0;
 
     static HashMap<Integer, Menu> menu = new HashMap<Integer, Menu>();
 
-    public Menu(String menuName, String explanation){
+
+    public void addMenu(int menuId,String menuName, String explanation){
+        this.menuId = menuId;
         this.menuName = menuName;
         this.explanation = explanation;
     }
@@ -20,11 +23,16 @@ public class Menu {
         }
     }
     public void setMenu(){
-        Menu menu1 = new Menu("피자   ", "스파르타식 피자 (옵션 선택)");
-        Menu menu2 = new Menu("사이드  ", "스파르타식 사이드");
-        Menu menu3 = new Menu("음료   ", "스파르타식 음료");
-        Menu menu4 = new Menu("주문   ", "장바구니를 확인 후 주문합니다.");
-        Menu menu5 = new Menu("취소   ", "진행중인 주문을 취소합니다.");
+        Menu menu1 = new Menu();
+        Menu menu2 = new Menu();
+        Menu menu3 = new Menu();
+        Menu menu4 = new Menu();
+        Menu menu5 = new Menu();
+        menu1.addMenu(++menuId,"피자   ", "스파르타식 피자 (옵션 선택)");
+        menu2.addMenu(++menuId,"사이드  ", "스파르타식 사이드");
+        menu3.addMenu(++menuId,"음료   ", "스파르타식 음료");
+        menu4.addMenu(++menuId,"주문   ", "장바구니를 확인 후 주문합니다.");
+        menu5.addMenu(++menuId,"취소   ", "진행중인 주문을 취소합니다.");
         menu.put(1, menu1);
         menu.put(2, menu2);
         menu.put(3, menu3);
@@ -47,7 +55,5 @@ public class Menu {
         System.out.print("메뉴 번호 입력 : ");
 
     }
-
-
 
 }

@@ -3,23 +3,24 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Menu menu = new Menu("", "");
-        Product product = new Product("",0,"");
-        Order order = new Order("", 0, "");
-        int inputNum;
+        Menu menu = new Menu();
+        Product product = new Product();
+        Order order = new Order();
+        int menuId;
+
+        menu.setMenu();
+        product.setProduct();
         Loop :
         while (true) {
-            menu.setMenu();
             menu.menuScreen();
-
-            inputNum = sc.nextInt();
-            if(inputNum<-1 || 5<inputNum) {
+            menuId = sc.nextInt();
+            if(menuId<-1 || 5<menuId) {
                 Menu.numError();
                 continue;
             }
-            switch (inputNum){
+            switch (menuId){
                 case 1,2,3 :
-                    product.setProduct(inputNum);
+                    product.selectMenu(menuId);
                     product.productScreen();
                     break;
                 case 4 :
