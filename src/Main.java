@@ -14,20 +14,22 @@ public class Main {
         while (true) {
             menu.menuScreen();
             menuId = sc.nextInt();
-            if(menuId<-1 || 5<menuId) {
+            if(menuId<-1 || 7<menuId) {
                 Menu.numError();
                 continue;
             }
             switch (menuId){
                 case 1,2,3 :
                     product.selectMenu(menuId);
-                    product.productScreen();
+                    product.inputNum(menuId);
                     break;
                 case 4 :
                     order.showOrders();
                     order.orderComplete();
                     break;
                 case 5 : order.orderCancel();break;
+                case 6 : product.createProduct();break;
+                case 7 : menu.deleteMenu();break;
                 case 0 : order.showTotalSale();break;
                 case -1 : break Loop;
             }

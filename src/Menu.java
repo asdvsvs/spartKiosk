@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Menu {
      String menuName;
@@ -40,6 +41,25 @@ public class Menu {
         menu.put(5, menu5);
     }
 
+    public void deleteMenu(){
+        Menu.menuNum = 1;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("---------------------------------------------------");
+        System.out.println("아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.\n");
+        System.out.println("[삭제할 스파르타 메뉴 ]");
+        for (int i=1; i<=3;i++){
+            System.out.printf("%d %s  |  %s\n", menuNum++,menu.get(i).menuName,menu.get(i).explanation);
+        }
+        System.out.print("메뉴 번호 입력 : ");
+        int num;
+        while (true){
+            num =sc.nextInt();
+            if(num<1 || 3<num) System.out.println("1,2,3 중 입력");
+            else break;
+        }
+        Product product = new Product();
+        product.deleteProduct(num);
+    }
     public void menuScreen(){
         Menu.menuNum = 1;
         System.out.println("---------------------------------------------------");
@@ -51,7 +71,7 @@ public class Menu {
             System.out.printf("%d %s  |  %s\n", menuNum++,menu.get(i).menuName,menu.get(i).explanation);
         }
         System.out.println();
-        System.out.println("(0.총 판매), (-1. 키오스크 끄기)");
+        System.out.println("(0.총 판매), (6.상품 생성), (7.상품 삭제) (-1. 키오스크 끄기)");
         System.out.print("메뉴 번호 입력 : ");
 
     }
