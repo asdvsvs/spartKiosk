@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -33,8 +33,6 @@ public class Main {
                 case 0 : order.showTotalSale();break;
                 case -1 : break Loop;
             }
-
         }
-
     }
 }
