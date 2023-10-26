@@ -4,23 +4,22 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        int inputNum;
         Scanner sc = new Scanner(System.in);
         Menu menu = new Menu();
         Product product = new Product();
         Order order = new Order();
         Manager manager = new Manager();
-        int inputNum;
+
         menu.setMenu();
         product.setProduct();
         Loop:
         while (true) {
             menu.menuScreen();
             inputNum = sc.nextInt();
-            if (inputNum == menu.getMenus("Main").size() + 1) {
-                order.showOrders();
-                order.orderComplete();
-            } else if (inputNum == menu.getMenus("Main").size() + 2) {
-                order.orderCancel();
+            while (inputNum < -3 || inputNum > Menu.menuMapSize) {
+                Menu.numError();
+                inputNum = sc.nextInt();
             }
             switch (inputNum) {
                 case 0:
@@ -29,34 +28,18 @@ public class Main {
                 case -1:
                     break Loop;
                 case -2:
-                    String menuName = Manager.setMenuName(menu, product);
-                    Product newProduct = manager.createProduct();
-                    product.addProduct(menuName, newProduct);
+                    menu.createMenu(menu, product);
+                    break;
+                case -3:
+                    product.allProductScreen();
+                    System.out.println("지울 id : ");
+                    int removeId = sc.nextInt();
+                    manager.deleteProduct(product.productMap,removeId);
+                case -4:
                     break;
                 default:
-                    product.productScreen(menu.getMenus("Main"), inputNum);
+                    menu.selectMenu(inputNum, Menu.menuMapSize, menu, product, order);
             }
-
-//            if (1 <= inputNum && inputNum <= menu.getMenus("Main").size()) {
-//                product.productScreen(menu.getMenus("Main"), inputNum);
-//            } else if (inputNum == menu.getMenus("Main").size() + 1) {
-//                order.showOrders();
-//                order.orderComplete();
-//            } else if (inputNum == menu.getMenus("Main").size() + 2) {
-//                order.orderCancel();
-//            } else if (inputNum == 0) {
-//                order.showTotalSale();
-//            } else if (inputNum == -1) {
-//                break Loop;
-//            } else if (inputNum == -2) {
-//                String menuName = Manager.setMenuName(menu, product);
-//                Product newProduct = manager.createProduct();
-//                product.addProduct(menuName, newProduct);
-//            } else {
-//                Menu.numError();
-//            }
-//        }
         }
     }
 }
-

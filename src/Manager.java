@@ -1,5 +1,7 @@
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Manager {
@@ -40,5 +42,20 @@ public class Manager {
             product.putMenu(newMenuName);
             return newMenuName;
         }
+    }
+
+    public void deleteProduct(Map<String, List<Product>> productMap, int productId) {
+        productMap.forEach((key, value) -> {
+            int removeIndex = -1;
+            for (int i = 0; i < value.size(); i++) {
+                if (value.get(i).id == productId) {
+                    removeIndex = i;
+                }
+            }
+            if (removeIndex > -1) {
+                value.remove(removeIndex);
+            }
+        });
+        System.out.println("상품이 삭제되었습니다.");
     }
 }

@@ -6,7 +6,9 @@ public class Product extends Menu {
 
     Map<String, List<Product>> productMap = new HashMap<>();
 
-    public Product(){}
+    public Product() {
+    }
+
     public Product(String menuName, float price, String explanation) {
         super(menuName, explanation);
         this.price = price;
@@ -53,6 +55,7 @@ public class Product extends Menu {
             System.out.println("장바구니에 추가 되었습니다.");
         }
     }
+
     public float getPrice() {
         return price;
     }
@@ -87,7 +90,7 @@ public class Product extends Menu {
         System.out.println("---------------------------------------------------");
         System.out.println("[ " + type + " 메뉴 ]");
         for (int i = 0; i < productMap.get(type).size(); i++) {
-            System.out.printf("%d %s \t  \t| W %.1f \t|\t%s\n", menuNum++, productMap.get(type).get(i).menuName, productMap.get(type).get(i).price, productMap.get(type).get(i).explanation);
+            System.out.printf("%d %-10s \t  \t| W %.1f \t|\t%s\n", menuNum++, productMap.get(type).get(i).menuName, productMap.get(type).get(i).price, productMap.get(type).get(i).explanation);
         }
         System.out.println();
         System.out.print("메뉴 번호 입력 : ");
@@ -99,13 +102,26 @@ public class Product extends Menu {
             else numError();
         }
         Menu.menuNum = productNum;
-        selectProduct(productMap.get(type).get(productNum-1).menuName, productMap.get(type).get(productNum-1).price, productMap.get(type).get(productNum-1).explanation);
+        selectProduct(productMap.get(type).get(productNum - 1).menuName, productMap.get(type).get(productNum - 1).price, productMap.get(type).get(productNum - 1).explanation);
     }
 
     public void addProduct(String key, Product newProduct) {
         productMap.get(key).add(newProduct);
     }
+
     public void putMenu(String key) {
         productMap.put(key, new ArrayList<>());
+    }
+
+    public void allProductScreen() {
+        System.out.println("[ 전체 상품 ]");
+        Iterator<String> iterator = productMap.keySet().iterator();
+        while (iterator.hasNext()){
+            String key = iterator.next();
+            System.out.println("[ " + key + " 메뉴 ]");
+            for(Product products : productMap.get(key)){
+                System.out.printf("%d. %-10s | %.1f | %s\n" , products.id, products.menuName, products.getPrice(),products.getExplanation());
+            }
+        }
     }
 }
