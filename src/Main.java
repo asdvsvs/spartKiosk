@@ -29,6 +29,8 @@ public class Main {
                 case 5 : order.orderCancel();break;
                 case 0 : order.showTotalSale();break;
                 case -1 : break Loop;
+
+
             }
 
         }

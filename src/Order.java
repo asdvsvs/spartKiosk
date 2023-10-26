@@ -47,6 +47,10 @@ public class Order extends Product {
         System.out.printf("W %.1f \n ", totalOrderPrice);
         System.out.println();
         System.out.println("1. 주문       2. 메뉴판");
+
+        System.out.println("추가 요청 사항이 있으시면 말씀해주세요");
+        Scanner sc = new Scanner(System.in);
+        sc.next();
     }
 
     public void orderComplete(){
