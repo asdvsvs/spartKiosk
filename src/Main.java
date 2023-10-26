@@ -16,6 +16,22 @@ public class Main {
         while (true) {
             menu.menuScreen();
             inputNum = sc.nextInt();
+            while (inputNum<-2 || inputNum>menu.getMenus("Main").size()){
+                    Menu.numError();
+                    inputNum = sc.nextInt();
+            }
+            switch (inputNum){
+                case 0 : order.showTotalSale(); break;
+                case -1: break Loop;
+                case  -2 :
+                    String menuName = setMenuName(menu, product);
+                    System.out.println(menuName + "or Null");
+                    Product newProduct = manager.createProduct();
+                    product.addProduct(menuName, newProduct);
+                    break;
+                default: product.productScreen(menu.getMenus("Main"), inputNum);
+            }
+
 
             if (1 <= inputNum && inputNum <= menu.getMenus("Main").size()) {
 //                System.out.println("menu.getMenus(Main).size() :  " + menu.getMenus("Main").size());
