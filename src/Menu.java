@@ -1,17 +1,29 @@
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class Menu {
-     String menuName;
-     String explanation;
-     static int menuNum;
+    String menuName;
+    String explanation;
+    static int menuNum;
+    static int idSeq = 1;
+    int id;
 
-    static HashMap<Integer, Menu> menu = new HashMap<Integer, Menu>();
 
-    public Menu(String menuName, String explanation){
+    private Map<String, List<Menu>> menus = new HashMap<>();
+
+    public Menu() {}
+
+    public Menu(String menuName, String explanation) {
+        this.id = idSeq++;
         this.menuName = menuName;
         this.explanation = explanation;
     }
-    public static void numError(){
+
+    public static void numError() {
         try {
             System.out.println("##번호 입력 오류!##");
             Thread.sleep(1000);
@@ -19,35 +31,65 @@ public class Menu {
             throw new RuntimeException(e);
         }
     }
-    public void setMenu(){
-        Menu menu1 = new Menu("피자   ", "스파르타식 피자 (옵션 선택)");
-        Menu menu2 = new Menu("사이드  ", "스파르타식 사이드");
-        Menu menu3 = new Menu("음료   ", "스파르타식 음료");
-        Menu menu4 = new Menu("주문   ", "장바구니를 확인 후 주문합니다.");
-        Menu menu5 = new Menu("취소   ", "진행중인 주문을 취소합니다.");
-        menu.put(1, menu1);
-        menu.put(2, menu2);
-        menu.put(3, menu3);
-        menu.put(4, menu4);
-        menu.put(5, menu5);
+
+    public void setMenu() {
+        List<Menu> categoryMenu = new ArrayList<>();
+
+        categoryMenu.add(new Menu("피자", "스파르타식 피자 (옵션 선택)"));
+        categoryMenu.add(new Menu("사이드", "스파르타식 사이드"));
+        categoryMenu.add(new Menu("음료", "스파르타식 음료"));
+
+        menus.put("Main", categoryMenu);
+
+        List<Menu> orderMenu = new ArrayList<>();
+
+        orderMenu.add(new Menu("주문   ", "장바구니를 확인 후 주문합니다."));
+        orderMenu.add(new Menu("취소   ", "진행중인 주문을 취소합니다."));
+
+        menus.put("Order", orderMenu);
     }
 
-    public void menuScreen(){
+    public void menuScreen() {
         Menu.menuNum = 1;
         System.out.println("---------------------------------------------------");
         System.out.println("\"스파르타 피자 에 오신걸 환영합니다.\"");
         System.out.println("아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.\n");
         System.out.println("[ 스파르타 메뉴 ]");
-        for (int i=1; i<menu.size()+1;i++){
-            if(i==4) System.out.println("\n[ 오더 메뉴 ]");
-            System.out.printf("%d %s  |  %s\n", menuNum++,menu.get(i).menuName,menu.get(i).explanation);
+        for (int i = 0; i < menus.get("Main").size(); i++) {
+            System.out.printf("%d %s  |  %s\n", menuNum++, menus.get("Main").get(i).getMenuName(), menus.get("Main").get(i).getExplanation());
+        }
+        System.out.println("\n[ 오더 메뉴 ]");
+        for (int i = 0; i < menus.get("Order").size(); i++) {
+            System.out.printf("%d %s  |  %s\n", menuNum++, menus.get("Order").get(i).getMenuName(), menus.get("Order").get(i).getExplanation());
         }
         System.out.println();
-        System.out.println("(0.총 판매), (-1. 키오스크 끄기)");
+        System.out.println("(0.총 판매), (-1. 키오스크 끄기), (-2. 상품생성 )");
         System.out.print("메뉴 번호 입력 : ");
-
     }
 
+    public String getMenuName() {
+        return menuName;
+    }
 
+    public String getExplanation() {
+        return explanation;
+    }
 
+    public List<Menu> getMenus(String key) {
+        return menus.get(key);
+    }
+
+    public String getMainMenuName(int id) {
+        List<Menu> mainMenus = menus.get("Main");
+        for (Menu mainMenu : mainMenus) {
+            if (mainMenu.id == id) {
+                return mainMenu.menuName;
+            }
+        }
+        return "";
+    }
+
+    public void addMenu(String key, String explanation) {
+        menus.get("Main").add(new Menu(key, explanation));
+    }
 }
