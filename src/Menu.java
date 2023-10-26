@@ -64,7 +64,7 @@ public class Menu {
             System.out.printf("%d %s  |  %s\n", menuNum++, menus.get("Order").get(i).getMenuName(), menus.get("Order").get(i).getExplanation());
         }
         System.out.println();
-        System.out.println("(0.총 판매), (-1. 키오스크 끄기), (-2. 상품생성 )");
+        System.out.println("(0.총 판매), (-1. 키오스크 끄기), (-2. 상품생성 ), (-3. 상품삭제), (-4. id로 상품삭제)");
         System.out.print("메뉴 번호 입력 : ");
     }
 
@@ -121,9 +121,24 @@ public class Menu {
     public void createMenu(Menu menu, Product product){
         Manager manager = new Manager();
         String menuName = menu.setMenuName(menu, product);
-        System.out.println(menuName + "or Null");
+        System.out.println(menuName+" 가 추가 되었습니다");
         Product newProduct = manager.createProduct();
         product.addProduct(menuName, newProduct);
+        Menu.menuMapSize=(int)getMenus("Main").size()+(int)getMenus("Order").size();
+    }
+
+    public void deleteMenu(Product product){
+        for (String s : product.productMap.keySet()){
+            if(product.productMap.get(s).isEmpty())
+                for (int i=0;i<menus.get("Main").size();i++)
+                {
+                    if(menus.get("Main").get(i).menuName.equals(s)){
+                        menus.get("Main").remove(i);
+                        break;
+                    }
+                }
+        }
+        Menu.menuMapSize=(int)getMenus("Main").size()+(int)getMenus("Order").size();
     }
 
     public void selectMenu(int inputNum, int menuMapSize,Menu menu,Product product,Order order){

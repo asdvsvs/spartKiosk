@@ -4,7 +4,7 @@ import java.util.*;
 public class Product extends Menu {
     float price;
 
-    Map<String, List<Product>> productMap = new HashMap<>();
+    public Map<String, List<Product>> productMap = new HashMap<>();
 
     public Product(){}
     public Product(String menuName, float price, String explanation) {
@@ -107,9 +107,5 @@ public class Product extends Menu {
     }
     public void putMenu(String key) {
         productMap.put(key, new ArrayList<>());
-    }
-
-    public void deleteProduct(){
-
     }
 }
