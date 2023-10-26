@@ -1,14 +1,19 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class Order extends Product {
     static float totalOrderPrice;
     static float totalSalePrice;
-    static int orderNum=1;
+    static int orderNum=0;
+    int waitingNum;
+    float orderPrice;
     static ArrayList<String> orders = new ArrayList<>();
     static ArrayList<String> tempOrders = new ArrayList<>();
     static ArrayList<String> totalOrders = new ArrayList<>();
+    static ArrayList<Order> orderArrayList = new ArrayList<>();
+    ArrayList<String> orderList = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
     static HashMap<String, Integer> menuCnt = new HashMap<String, Integer>();
 
@@ -51,7 +56,7 @@ public class Order extends Product {
         int second=3;
         if(sc.nextInt()==1){
             System.out.println("주문이 완료되었습니다!");
-            System.out.printf("대기번호는 [ %d ] 번입니다.\n", Order.orderNum++);
+            System.out.printf("대기번호는 [ %d ] 번입니다.\n", ++Order.orderNum);
             try {
                 System.out.printf("(%d 초 후 메뉴판으로 돌아갑니다.)\n",second);
                 System.out.print(second+", ");
@@ -64,12 +69,24 @@ public class Order extends Product {
             }catch (Exception e){
                 System.out.println("에러"+e);
             }
+            makeOrderList(Order.orderNum,tempOrders,totalOrderPrice);
             orders.clear();
             totalOrders.addAll(tempOrders);
             totalSalePrice +=totalOrderPrice;
             totalOrderPrice = 0;
             menuCnt.clear();
             tempOrders.clear();
+        }
+    }
+    public void makeOrderList(int waitingNum, ArrayList<String> orderLists, float totalOrderPrice){
+        orderArrayList.add(waitingNum,new Order());
+        orderArrayList.get(waitingNum).waitingNum = waitingNum;
+        orderArrayList.get(waitingNum).orderList = orderLists;
+        orderArrayList.get(waitingNum).orderPrice = totalOrderPrice;
+    }
+    public void waitingOrderList(){
+        for(Order o : orderArrayList){
+            //여기하는중
         }
     }
 
