@@ -1,8 +1,5 @@
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 public class Menu {
@@ -11,6 +8,8 @@ public class Menu {
     static int menuNum;
     static int idSeq = 1;
     int id;
+
+    static int menuMapSize;
 
 
     private Map<String, List<Menu>> menus = new HashMap<>();
@@ -47,6 +46,8 @@ public class Menu {
         orderMenu.add(new Menu("취소   ", "진행중인 주문을 취소합니다."));
 
         menus.put("Order", orderMenu);
+
+        Menu.menuMapSize=(int)getMenus("Main").size()+(int)getMenus("Order").size();
     }
 
     public void menuScreen() {
@@ -66,6 +67,7 @@ public class Menu {
         System.out.println("(0.총 판매), (-1. 키오스크 끄기), (-2. 상품생성 )");
         System.out.print("메뉴 번호 입력 : ");
     }
+
 
     public String getMenuName() {
         return menuName;
@@ -91,5 +93,47 @@ public class Menu {
 
     public void addMenu(String key, String explanation) {
         menus.get("Main").add(new Menu(key, explanation));
+    }
+
+    public String setMenuName(Menu menu, Product product) {
+        System.out.println("[ 메뉴 목록 ]");
+        List<Menu> mainMenus = menu.getMenus("Main");
+        int num = 1;
+        for (int i = 0; i < mainMenus.size(); i++) {
+            System.out.println(num++ + ". " + mainMenus.get(i).menuName + "   | " + mainMenus.get(i).explanation);
+        }
+        System.out.println(mainMenus.size() + 1 + ". 신규 메뉴");
+        System.out.print("메뉴 ID: ");
+        Scanner scanner = new Scanner(System.in);
+        int menuId = scanner.nextInt();
+        if (menuId <= mainMenus.size()) {
+            return menu.getMainMenuName(menuId);
+        } else {
+            System.out.print("신규 메뉴이름: ");
+            String newMenuName = scanner.next();
+            System.out.print("신규 메뉴설명: ");
+            String newMenuDescription = scanner.next();
+            menu.addMenu(newMenuName, newMenuDescription);
+            product.putMenu(newMenuName);
+            return newMenuName;
+        }
+    }
+    public void createMenu(Menu menu, Product product){
+        Manager manager = new Manager();
+        String menuName = menu.setMenuName(menu, product);
+        System.out.println(menuName + "or Null");
+        Product newProduct = manager.createProduct();
+        product.addProduct(menuName, newProduct);
+    }
+
+    public void selectMenu(int inputNum, int menuMapSize,Menu menu,Product product,Order order){
+        if(inputNum==menuMapSize-1){
+            order.showOrders();
+            order.orderComplete();
+        }
+        else if(inputNum==menuMapSize){
+            order.orderCancel();
+        }
+        else product.productScreen(menu.getMenus("Main"), inputNum);
     }
 }
