@@ -17,4 +17,28 @@ public class Manager {
 
         return new Product(menuName, price, explanation);
     }
+
+    public static String setMenuName(Menu menu, Product product) {
+        System.out.println("[ 메뉴 목록 ]");
+        List<Menu> mainMenus = menu.getMenus("Main");
+        int num = 1;
+        for (int i = 0; i < mainMenus.size(); i++) {
+            System.out.println(num++ + ". " + mainMenus.get(i).menuName + "   | " + mainMenus.get(i).explanation);
+        }
+        System.out.println(mainMenus.size() + 1 + ". 신규 메뉴");
+        System.out.print("메뉴 ID: ");
+        Scanner scanner = new Scanner(System.in);
+        int menuId = scanner.nextInt();
+        if (menuId <= mainMenus.size()) {
+            return menu.getMainMenuName(menuId);
+        } else {
+            System.out.print("신규 메뉴이름: ");
+            String newMenuName = scanner.next();
+            System.out.print("신규 메뉴설명: ");
+            String newMenuDescription = scanner.next();
+            menu.addMenu(newMenuName, newMenuDescription);
+            product.putMenu(newMenuName);
+            return newMenuName;
+        }
+    }
 }
