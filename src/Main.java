@@ -1,4 +1,5 @@
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
@@ -8,8 +9,6 @@ public class Main {
         Menu menu = new Menu();
         Product product = new Product();
         Order order = new Order();
-
-//        int menuMapSize;
         int inputNum=100;
         menu.setMenu();
         product.setProduct();

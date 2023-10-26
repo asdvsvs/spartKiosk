@@ -108,4 +108,8 @@ public class Product extends Menu {
     public void putMenu(String key) {
         productMap.put(key, new ArrayList<>());
     }
+
+    public void deleteProduct(){
+
+    }
 }
