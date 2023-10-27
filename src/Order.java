@@ -12,7 +12,6 @@ public class Order extends Product {
     static ArrayList<String> totalOrders = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
     static HashMap<String, Integer> menuCnt = new HashMap<String, Integer>();
-
     public Order() {}
 
     public Order(String menuName, float price, String explanation) {
@@ -103,6 +102,4 @@ public class Order extends Product {
         System.out.println("1.돌아가기");
         sc.nextInt();
     }
-
-
 }
