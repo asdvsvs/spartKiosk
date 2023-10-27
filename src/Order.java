@@ -12,7 +12,7 @@ public class Order extends Product {
     static ArrayList<String> totalOrders = new ArrayList<>();
     Scanner sc = new Scanner(System.in);
     static HashMap<String, Integer> menuCnt = new HashMap<String, Integer>();
-
+String requirement;
     public Order() {}
 
     public Order(String menuName, float price, String explanation) {
