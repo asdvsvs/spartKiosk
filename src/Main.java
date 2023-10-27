@@ -1,39 +1,39 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        Menu menu = new Menu("", "");
-        Product product = new Product("",0,"");
-        Order order = new Order("", 0, "");
-        int inputNum;
-        Loop :
-        while (true) {
-            menu.setMenu();
-            menu.menuScreen();
+        Menu menu = new Menu();
+        Product product = new Product();
+        Order order = new Order();
+        Manager manager = new Manager();
 
+        int inputNum=100;
+        menu.setMenu();
+        product.setProduct();
+        Loop:
+        while (true) {
+            menu.menuScreen();
             inputNum = sc.nextInt();
-            if(inputNum<-1 || 5<inputNum) {
+            while (inputNum<-4 || inputNum > Menu.menuMapSize){
                 Menu.numError();
-                continue;
+                inputNum = sc.nextInt();
             }
             switch (inputNum){
-                case 1,2,3 :
-                    product.setProduct(inputNum);
-                    product.productScreen();
-                    break;
-                case 4 :
-                    order.showOrders();
-                    order.orderComplete();
-                    break;
-                case 5 : order.orderCancel();break;
-                case 0 : order.showTotalSale();break;
-                case -1 : break Loop;
 
+
+
+                case 0 : order.showTotalSale(); break;
+                case -1: break Loop;
+                case -2 : menu.createMenu(menu,product); break;
+                case -3:  manager.deleteProduct(menu,product); break ;
+                case -4: manager.deleteProductById(menu,product); break ;
+                default: menu.selectMenu(inputNum,Menu.menuMapSize,menu,product,order);
 
             }
-
         }
-
     }
+
+
 }
