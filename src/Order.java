@@ -102,6 +102,4 @@ public class Order extends Product {
         System.out.println("1.돌아가기");
         sc.nextInt();
     }
-
-
 }
