@@ -1,9 +1,5 @@
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Order extends Product {
     LocalDateTime orderDateTime = LocalDateTime.now(); //주문 완료 시간
@@ -13,17 +9,22 @@ public class Order extends Product {
     static float totalPrices; // 주문의 총 금액을 저장하여 저장데이터로 옮겨주는 정적 변수
     static float completedTotalPrices; // 주문데이터 총금액을 저장하여 완료데이터로 옮겨주는 정적 변수
     static int orderNum = 1;
+    int orderDateNum;
+    int completedNum;
+
     static ArrayList<String> orders = new ArrayList<>();
     static ArrayList<String> tempOrders = new ArrayList<>();
     static ArrayList<String> totalOrders = new ArrayList<>();
     static ArrayList<String> orderDatas = new ArrayList<>(); //주문데이터 목록을 저장하는 동적 배열
     static ArrayList<String> completedDatas = new ArrayList<>();//완료데이터 목록을 저장하는 동적 배열
     static ArrayList<String> orderDataList = new ArrayList<>(); // 주문 데이터를 저장하는 ArrayList
+
+    static ArrayList<Order> orderList = new ArrayList<>();
     static ArrayList<String> completedDataList = new ArrayList<>(); // 주문 데이터를 저장하는 ArrayList
     Scanner sc = new Scanner(System.in);
-    static HashMap<String, Integer> menuCnt = new HashMap<String, Integer>();
+    static HashMap<String, Integer> menuCnt = new HashMap<>();
     String orderRequest; // 주문 요청 사항을 저장하는 변수
-    List<String> orderItems;
+    String completedRequest; // 주문 요청 사항을 저장하는 변수 완료데이터쪽
 
     public Order() {
     }
@@ -72,7 +73,7 @@ public class Order extends Product {
             orderRequest = sc.nextLine(); // 주문 요청사항 입력 받음
             System.out.println("주문 요청사항: " + orderRequest);
             System.out.println("주문이 완료되었습니다!");
-            System.out.printf("대기번호는 [ %d ] 번입니다.\n", Order.orderNum++);
+            System.out.printf("대기번호는 [ %d ] 번입니다.\n", Order.orderNum);
             try {
                 System.out.printf("(%d 초 후 메뉴판으로 돌아갑니다.)\n", second);
                 System.out.print(second + ", ");
@@ -86,6 +87,8 @@ public class Order extends Product {
                 System.out.println("에러" + e);
             }
             orders.clear();
+            orderList.get(0).orderDateNum += orderNum;
+            orderNum++;
             totalOrders.addAll(tempOrders);
             totalSalePrice += totalOrderPrice;
             totalPrices += totalOrderPrice;//새로 만든 주문데이터에 가격 추가
@@ -125,43 +128,44 @@ public class Order extends Product {
 
     public void orderData() {
         System.out.println("---------------------------------------------------");
-        OrderData orderData = new OrderData(Order.orderNum, orderDatas, totalPrices, orderRequest, orderDateTime);
-        orderDataList.add(String.valueOf(orderData));
-        System.out.println(orderDataList.toString());
+        OrderData orderData = new OrderData(orderDateNum, orderDatas, totalPrices, orderRequest, orderDateTime);
+//        orderDataList.add(String.valueOf(orderData));
+//        for (String s : orderDataList){
+//                System.out.println(s);
+//        }
+        orderList.add(new Order());
+        for (Order s : orderList){
+            System.out.println(s);
+        }
+
 
         System.out.println("0.돌아가기");
         System.out.println("1.주문완료 ");
         int num = sc.nextInt();
         if (num == 1) {
+            completedNum += orderDateNum;
             completedDatas.addAll(orderDatas);
-            orderDatas.remove(0);
             completedTotalPrices += totalPrices;
+            completedRequest += orderRequest;
+            orderDataList.remove(0);
+            //초기화
+            orderDateNum = 0;
+            orderDatas.clear();
             totalPrices = 0;
+            orderRequest = "";
 
         }
     }
 
     public void completedData() {
         System.out.println("---------------------------------------------------");
-        CompletedData completedData = new CompletedData(Order.orderNum);
+        CompletedData completedData = new CompletedData(completedNum,completedDatas,completedTotalPrices, orderRequest, orderDateTime,completedDateTime);
         completedDataList.add(String.valueOf(completedData));
-        System.out.println(completedDataList.toString());
+        System.out.println(completedDataList);
 
         System.out.println("1.돌아가기");
         sc.nextInt();
+
     }
-
-    @Override
-    public String toString() {
-        return  "주문 상세 정보:\n" +
-                "주문 번호: " + orderNum + "\n" +
-                "주문 항목: " + orderDatas + "\n" +
-                "총 가격: W" + totalPrices + "\n" +
-                "주문 요청 사항: " + orderRequest + "\n" +
-                "주문 날짜와 시간: " + orderDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-    }
-
-
-
 
 }
