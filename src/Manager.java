@@ -45,14 +45,14 @@ public class Manager {
 
     public void deleteProduct(Map<String, List<Product>> productMap, int productId) {
         int removeindex = -1;
-        for(Map.Entry<String,List<Product>> entry : productMap.entrySet()){
-            for (int i = 0; i < entry.getValue().size(); i++) {
-                if(entry.getValue().get(i).id == productId){
+        for(List<Product> list : productMap.values()){
+            for (int i = 0; i < list.size(); i++) {
+                if(list.get(i).id == productId){
                     removeindex = i;
                 }
             }
             if(removeindex != -1){
-                entry.getValue().remove(removeindex);
+                list.remove(removeindex);
             }
         }
         System.out.println("상품이 삭제되었습니다.");

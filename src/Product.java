@@ -89,7 +89,7 @@ public class Product extends Menu {
         String type = menuList.get(inputNum - 1).getMenuName();
         System.out.println("---------------------------------------------------");
         System.out.println("[ " + type + " 메뉴 ]");
-        if(productMap.get(type).isEmpty()){
+        if (productMap.get(type).isEmpty()) {
             System.out.println(" 준비된 메뉴가 없습니다. ");
 //            ???
         }
@@ -119,10 +119,10 @@ public class Product extends Menu {
 
     public void allProductScreen() {
         System.out.println("[ 전체 상품 ]");
-        for(String key : productMap.keySet()){
+        for (String key : productMap.keySet()) {
             System.out.println("[ " + key + " 메뉴 ]");
-            for(Product products : productMap.get(key)){
-                System.out.printf("%d. %-10s | %.1f | %s\n" , products.id, products.menuName, products.getPrice(),products.getExplanation());
+            for (Product products : productMap.get(key)) {
+                System.out.printf("%d. %-10s | %.1f | %s\n", products.id, products.menuName, products.getPrice(), products.getExplanation());
             }
         }
     }
