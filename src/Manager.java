@@ -1,5 +1,4 @@
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -45,17 +44,17 @@ public class Manager {
     }
 
     public void deleteProduct(Map<String, List<Product>> productMap, int productId) {
-        productMap.forEach((key, value) -> {
-            int removeIndex = -1;
-            for (int i = 0; i < value.size(); i++) {
-                if (value.get(i).id == productId) {
-                    removeIndex = i;
+        int removeindex = -1;
+        for(Map.Entry<String,List<Product>> entry : productMap.entrySet()){
+            for (int i = 0; i < entry.getValue().size(); i++) {
+                if(entry.getValue().get(i).id == productId){
+                    removeindex = i;
                 }
             }
-            if (removeIndex > -1) {
-                value.remove(removeIndex);
+            if(removeindex != -1){
+                entry.getValue().remove(removeindex);
             }
-        });
+        }
         System.out.println("상품이 삭제되었습니다.");
     }
 }
