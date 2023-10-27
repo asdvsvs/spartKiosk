@@ -21,6 +21,10 @@ public class Main {
             }
             if (inputNum == -2) {
                 int managerInputNum = manager.managerScreen();
+                while(!(0<= managerInputNum && managerInputNum <= 4)){
+                    Menu.numError();
+                    managerInputNum = manager.managerScreen();
+                }
                 switch (managerInputNum) {
                     case 0:
                         break;
@@ -32,8 +36,6 @@ public class Main {
                     case 4:
                         manager.deleteProductById(menu, product);
                         break;
-                    default:Menu.numError();
-                        managerInputNum = sc.nextInt();
                 }
             }
             else {
