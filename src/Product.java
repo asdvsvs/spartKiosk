@@ -4,7 +4,7 @@ import java.util.*;
 public class Product extends Menu {
     float price;
 
-    Map<String, List<Product>> productMap = new HashMap<>();
+    public Map<String, List<Product>> productMap = new HashMap<>();
 
     public Product() {
     }

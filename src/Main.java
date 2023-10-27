@@ -1,4 +1,3 @@
-
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,14 +9,14 @@ public class Main {
         Product product = new Product();
         Order order = new Order();
         Manager manager = new Manager();
-
         menu.setMenu();
         product.setProduct();
         Loop:
         while (true) {
             menu.menuScreen();
             inputNum = sc.nextInt();
-            while (inputNum < -3 || inputNum > Menu.menuMapSize) {
+
+            while (inputNum < -4 || inputNum > Menu.menuMapSize) {
                 Menu.numError();
                 inputNum = sc.nextInt();
             }
@@ -31,14 +30,14 @@ public class Main {
                     menu.createMenu(menu, product);
                     break;
                 case -3:
-                    product.allProductScreen();
-                    System.out.println("지울 id : ");
-                    int removeId = sc.nextInt();
-                    manager.deleteProduct(product.productMap,removeId);
+
+                    break;
                 case -4:
+                    manager.deleteProductById(menu, product);
                     break;
                 default:
                     menu.selectMenu(inputNum, Menu.menuMapSize, menu, product, order);
+
             }
         }
     }

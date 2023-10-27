@@ -5,6 +5,30 @@ import java.util.Scanner;
 
 public class Manager {
 
+    public static void managerScreen(){
+        int inputNum;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("[ 관리자 메뉴 ]");
+        System.out.println("어떤 작업을 수행하시겠습니까?");
+        System.out.println("1. 대기주문 목록");
+        System.out.println("2. 완료주문 목록");
+        System.out.println("3. 상품 생성");
+        System.out.println("4. 상품 삭제");
+        System.out.println("0. 돌아가기");
+
+        inputNum = sc.nextInt();
+        switch (inputNum) {
+            case 0 : break;
+//            case 1 : 대기주문목록 출력
+//            case 2 : 완료주문목록 출력
+            case 3 : menu.createMenu(menu, product);
+                break;
+            case 4 : manager.deleteProductById(menu, product);
+                break;
+        }
+
+
+    }
     public Product createProduct() {
         Scanner sc = new Scanner(System.in);
         System.out.println("이름 설정 : ");
@@ -42,19 +66,22 @@ public class Manager {
             return newMenuName;
         }
     }
-
-    public void deleteProduct(Map<String, List<Product>> productMap, int productId) {
-        int removeindex = -1;
-        for(List<Product> list : productMap.values()){
-            for (int i = 0; i < list.size(); i++) {
-                if(list.get(i).id == productId){
-                    removeindex = i;
-                }
-            }
-            if(removeindex != -1){
-                list.remove(removeindex);
-            }
+    public void deleteProductById(Menu menu,Product product){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("---------------------------------------------------");
+        System.out.println("상품 id로 삭제하기");
+        for (List<Product> p : product.productMap.values()){
+            for(int i=0;i<p.size();i++)  System.out.println(p.get(i).menuName+p.get(i).id);
         }
-        System.out.println("상품이 삭제되었습니다.");
+        System.out.print("삭제할 id 입력: ");
+        int inputId = sc.nextInt();
+        for (List<Product> p : product.productMap.values())
+            for(int i=0;i<p.size();i++)  {
+                if(inputId==p.get(i).id) p.remove(i);
+                break;
+            }
+        System.out.println("삭제완료");
+        menu.deleteMenu(product);
     }
+
 }
