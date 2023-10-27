@@ -84,36 +84,6 @@ public class Product extends Menu {
 
     public void productScreen(List<Menu> menuList, int inputNum) {
         Scanner sc = new Scanner(System.in);
-        Product tempProduct= new Product();
-        System.out.println("---------------------------------------------------");
-        System.out.println("추가 할 정보 입력\n menuId, menuName, price, explanation");
-        tempProduct.menuId = sc.nextInt();
-        tempProduct.productId = createId+1;
-        tempProduct.menuName = sc.next();
-        tempProduct.price = sc.nextFloat();
-        tempProduct.explanation = sc.nextLine();
-        product.put(createId+1,tempProduct);
-        createId++;
-    }
-
-    public void deleteProduct(int menuId){
-        productScreen(menuId);
-        System.out.println("\t(*1~4 기존상품 삭제불가*)");
-        Scanner sc = new Scanner(System.in);
-        int productNum;
-        while (true){
-            productNum =sc.nextInt();
-            if(productNum<5) System.out.println("기존 메뉴는 삭제 불가");
-            else break;
-        }
-        while (product.get(productNum).menuId!=menuId){
-            productNum++;
-        }
-        product.remove(productNum);
-    }
-
-
-    public void productScreen(int menuId){
         Menu.menuNum = 1;
         String type = menuList.get(inputNum - 1).getMenuName();
         System.out.println("---------------------------------------------------");
@@ -123,10 +93,7 @@ public class Product extends Menu {
         }
         System.out.println();
         System.out.print("메뉴 번호 입력 : ");
-    }
-    public void inputNum(int menuId){
-        productScreen(menuId);
-        Scanner sc = new Scanner(System.in);
+
         int productNum;
         while (true) {
             productNum = sc.nextInt();
@@ -146,4 +113,3 @@ public class Product extends Menu {
     }
 
 }
-
