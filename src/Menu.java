@@ -65,7 +65,7 @@ public class Menu {
         }
         System.out.println();
 
-        System.out.println("(0.총 판매), (-1. 키오스크 끄기), (-2. 상품생성 ), (-3. 상품삭제), (-4. id로 상품삭제)");
+        System.out.println("(0.총 판매), (-1. 키오스크 끄기), (-2. 관리자 메뉴 )");
 
         System.out.print("메뉴 번호 입력 : ");
     }

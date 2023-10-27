@@ -16,28 +16,36 @@ public class Main {
             menu.menuScreen();
             inputNum = sc.nextInt();
 
-            while (inputNum < -4 || inputNum > Menu.menuMapSize) {
+            while (inputNum < -2 || inputNum > Menu.menuMapSize) {
                 Menu.numError();
                 inputNum = sc.nextInt();
             }
-            switch (inputNum) {
-                case 0:
-                    order.showTotalSale();
-                    break;
-                case -1:
-                    break Loop;
-                case -2:
-                    menu.createMenu(menu, product);
-                    break;
-                case -3:
-
-                    break;
-                case -4:
-                    manager.deleteProductById(menu, product);
-                    break;
-                default:
-                    menu.selectMenu(inputNum, Menu.menuMapSize, menu, product, order);
-
+            if (inputNum == -2) {
+                manager.managerScreen();
+                inputNum = sc.nextInt();
+                switch (inputNum) {
+                    case 0:
+                        break;
+//            case 1 : 대기주문목록 출력
+//            case 2 : 완료주문목록 출력
+                    case 3:
+                        menu.createMenu(menu, product);
+                        break;
+                    case 4:
+                        manager.deleteProductById(menu, product);
+                        break;
+                }
+            }
+            else {
+                switch (inputNum) {
+                    case 0:
+                        order.showTotalSale();
+                        break;
+                    case -1:
+                        break Loop;
+                    default:
+                        menu.selectMenu(inputNum, Menu.menuMapSize, menu, product, order);
+                }
             }
         }
     }
