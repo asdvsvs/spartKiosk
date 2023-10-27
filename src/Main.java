@@ -16,7 +16,7 @@ public class Main {
         while (true) {
             menu.menuScreen();
             inputNum = sc.nextInt();
-            while (inputNum<-4 || inputNum > Menu.menuMapSize){
+            while (inputNum<-6 || inputNum > Menu.menuMapSize){
                 Menu.numError();
                 inputNum = sc.nextInt();
             }
@@ -26,6 +26,8 @@ public class Main {
                 case -2 : menu.createMenu(menu,product); break;
                 case -3:  manager.deleteProduct(menu,product); break ;
                 case -4: manager.deleteProductById(menu,product); break ;
+                case -5: order.orderData(); break ;
+                case -6: order.completedData(); break ;
                 default: menu.selectMenu(inputNum,Menu.menuMapSize,menu,product,order);
             }
         }

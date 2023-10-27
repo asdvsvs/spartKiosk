@@ -64,7 +64,7 @@ public class Menu {
             System.out.printf("%d %s  |  %s\n", menuNum++, menus.get("Order").get(i).getMenuName(), menus.get("Order").get(i).getExplanation());
         }
         System.out.println();
-        System.out.println("(0.총 판매), (-1. 키오스크 끄기), (-2. 상품생성 ), (-3. 상품삭제), (-4. id로 상품삭제)");
+        System.out.println("(0.총 판매), (-1. 키오스크 끄기), (-2. 상품생성 ), (-3. 상품삭제), (-4. id로 상품삭제), (-5. 대기주문 목록), (-6. 완료주문 목록)");
         System.out.print("메뉴 번호 입력 : ");
     }
 
