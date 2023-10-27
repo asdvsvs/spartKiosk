@@ -1,10 +1,9 @@
-
 import java.util.List;
 import java.util.Scanner;
 
 public class Manager {
 
-    public void managerScreen() {
+    public int managerScreen() {
         int inputNum;
         Scanner sc = new Scanner(System.in);
         System.out.println("[ 관리자 메뉴 ]");
@@ -14,7 +13,8 @@ public class Manager {
         System.out.println("3. 상품 생성");
         System.out.println("4. 상품 삭제");
         System.out.println("0. 돌아가기");
-
+        inputNum = sc.nextInt();
+        return inputNum;
     }
 
     public Product createProduct() {

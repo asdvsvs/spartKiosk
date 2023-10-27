@@ -1,4 +1,3 @@
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -21,9 +20,8 @@ public class Main {
                 inputNum = sc.nextInt();
             }
             if (inputNum == -2) {
-                manager.managerScreen();
-                inputNum = sc.nextInt();
-                switch (inputNum) {
+                int managerInputNum = manager.managerScreen();
+                switch (managerInputNum) {
                     case 0:
                         break;
 //            case 1 : 대기주문목록 출력
@@ -34,6 +32,8 @@ public class Main {
                     case 4:
                         manager.deleteProductById(menu, product);
                         break;
+                    default:Menu.numError();
+                        managerInputNum = sc.nextInt();
                 }
             }
             else {
