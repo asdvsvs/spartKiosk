@@ -9,8 +9,8 @@ public class Order extends Product {
     static float totalPrices; // 주문의 총 금액을 저장하여 저장데이터로 옮겨주는 정적 변수
     static float completedTotalPrices; // 주문데이터 총금액을 저장하여 완료데이터로 옮겨주는 정적 변수
     static int orderNum = 1;
-    int orderDateNum;
-    int completedNum;
+    static int orderDateNum;
+    static int completedNum;
 
     static ArrayList<String> orders = new ArrayList<>();
     static ArrayList<String> tempOrders = new ArrayList<>();
@@ -87,7 +87,7 @@ public class Order extends Product {
                 System.out.println("에러" + e);
             }
             orders.clear();
-            orderList.get(0).orderDateNum += orderNum;
+            orderDateNum += orderNum;
             orderNum++;
             totalOrders.addAll(tempOrders);
             totalSalePrice += totalOrderPrice;
