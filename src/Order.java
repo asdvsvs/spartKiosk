@@ -153,14 +153,15 @@ public class Order extends Product {
         if(completedOrder.isEmpty()) System.out.println("완료된 주문이 없습니다\n");
         for (int i = completedOrder.size()-1; i>=0 &&i >completedOrder.size()-4; i--) {
             completedOrder.get(i).showData();
+            System.out.println("---------------------------------------------------");
         }
         System.out.println("---------------------------------------------------");
         System.out.println("[ 대기 중인 모든 주문 ]");
         for (int i=0; i<orderData.size();i++){
             orderData.get(i).showData();
+            System.out.println("---------------------------------------------------");
         }
         System.out.println("\n1.돌아가기");
         sc.nextInt();
     }
-
 }
