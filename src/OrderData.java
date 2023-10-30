@@ -5,23 +5,19 @@ import java.util.List;
 
 public class OrderData extends Order{
 
-    public OrderData (int orderDateNum, List<String> orderDatas, float totalOrderPrice, String orderRequest, LocalDateTime orderDateTime) {
-        Order.orderDateNum = orderDateNum;
-            System.out.println("주문 번호: " +orderDateNum);
-
-        Order.orderDatas = new ArrayList<>(orderDatas);
-            System.out.println("주문 항목: " +orderDatas);
-
-        Order.totalOrderPrice = totalOrderPrice;
-            System.out.println("총 가격: W" +totalOrderPrice);
-
+    public OrderData (int orderDateNum, List<String> orderData, float totalOrderPrice, String orderRequest, LocalDateTime orderDateTime) {
+        this.orderDateNum = orderDateNum;
+        this.orderDatas = new ArrayList<>(orderData);
+        this.totalPrices = totalOrderPrice;
         this.orderRequest = orderRequest;
-            System.out.println("주문 요청 사항: " +orderRequest);
-
         this.orderDateTime = orderDateTime;
-            System.out.println("주문 날짜와 시간: " +orderDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-
-
+    }
+    public void showData(){
+        System.out.println("주문 번호: " + orderDateNum);
+        System.out.println("주문 항목: " + orderDatas);
+        System.out.printf("총 가격: W %.1f\n" , totalPrices);
+        System.out.println("주문 요청 사항: " + orderRequest);
+        System.out.println("주문 날짜와 시간: " + orderDateTime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
     }
 
 
