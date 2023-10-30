@@ -158,6 +158,7 @@ public class Order extends Product {
         System.out.println("[ 대기 중인 모든 주문 ]");
         for (int i=0; i<orderData.size();i++){
             orderData.get(i).showData();
+            System.out.println("---------------------------------------------------");
         }
         System.out.println("\n1.돌아가기");
         sc.nextInt();
