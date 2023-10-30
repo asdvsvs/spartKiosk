@@ -1,19 +1,30 @@
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class Order extends Product {
+    LocalDateTime orderDateTime;
+    LocalDateTime completedDateTime =  LocalDateTime.now(); //완료 처리 시간
     static float totalOrderPrice;
     static float totalSalePrice;
+    float totalPrices; // 주문의 총 금액을 저장하여 저장데이터로 옮겨주는 정적 변수
+    static float completedTotalPrices; // 주문데이터 총금액을 저장하여 완료데이터로 옮겨주는 정적 변수
     static int orderNum = 1;
+    int orderDateNum;
+    static int completedNum;
+
     static ArrayList<String> orders = new ArrayList<>();
     static ArrayList<String> tempOrders = new ArrayList<>();
     static ArrayList<String> totalOrders = new ArrayList<>();
-    Scanner sc = new Scanner(System.in);
-    static HashMap<String, Integer> menuCnt = new HashMap<String, Integer>();
+    ArrayList<String> orderDatas = new ArrayList<>(); //주문데이터 목록을 저장하는 동적 배열
+    static ArrayList<String> completedDatas = new ArrayList<>();//완료데이터 목록을 저장하는 동적 배열
 
-    public Order() {}
+    Scanner sc = new Scanner(System.in);
+    static HashMap<String, Integer> menuCnt = new HashMap<>();
+    String orderRequest; // 주문 요청 사항을 저장하는 변수
+    List<OrderData> orderData = new ArrayList<>();
+    List<OrderData> completedOrder = new ArrayList<>();
+    public Order() {
+    }
 
     public Order(String menuName, float price, String explanation) {
         super(menuName, price, explanation);
@@ -49,17 +60,17 @@ public class Order extends Product {
         System.out.printf("W %.1f \n ", totalOrderPrice);
         System.out.println();
         System.out.println("1. 주문       2. 메뉴판");
-
-        System.out.println("추가 요청 사항이 있으시면 말씀해주세요");
-        Scanner sc = new Scanner(System.in);
-        sc.next();
     }
 
     public void orderComplete() {
         int second = 3;
         if (sc.nextInt() == 1) {
+            System.out.println("주문 요청사항을 입력해주세요.");
+            sc.nextLine();
+            orderRequest = sc.nextLine(); // 주문 요청사항 입력 받음
+            System.out.println("주문 요청사항: " + orderRequest);
             System.out.println("주문이 완료되었습니다!");
-            System.out.printf("대기번호는 [ %d ] 번입니다.\n", Order.orderNum++);
+            System.out.printf("대기번호는 [ %d ] 번입니다.\n", Order.orderNum);
             try {
                 System.out.printf("(%d 초 후 메뉴판으로 돌아갑니다.)\n", second);
                 System.out.print(second + ", ");
@@ -72,7 +83,10 @@ public class Order extends Product {
             } catch (Exception e) {
                 System.out.println("에러" + e);
             }
+            orderDateTime = LocalDateTime.now();
+            orderData.add(new OrderData(orderNum, tempOrders, totalOrderPrice, orderRequest, orderDateTime));
             orders.clear();
+            orderNum++;
             totalOrders.addAll(tempOrders);
             totalSalePrice += totalOrderPrice;
             totalOrderPrice = 0;
@@ -108,5 +122,45 @@ public class Order extends Product {
         sc.nextInt();
     }
 
+    public void orderData() {
+        for (int i=0; i<orderData.size();i++){
+            System.out.println("---------------------------------------------------");
+            System.out.println("[ 대기 주문 목록 ]");
+            orderData.get(i).showData();
+        }
+        System.out.println("\n0.돌아가기");
+        System.out.println("1.맨위에 주문 완료처리 ");
+        if (sc.nextInt() == 1) {
+            completedOrder.add(orderData.get(0));
+            orderData.remove(0);
+        }
+    }
+
+    public void completedData() {
+        System.out.println("---------------------------------------------------");
+        System.out.println("[ 완료 주문 목록 ]");
+        for (int i=0; i<completedOrder.size();i++){
+            System.out.println("*******        *******");
+            completedOrder.get(i).showData();
+        }
+        System.out.println("\n1.돌아가기");
+        sc.nextInt();
+    }
+
+    public void showOrderStatus() {
+        System.out.println("---------------------------------------------------");
+        System.out.println("[ 최근 완료 주문 ]");
+        if(completedOrder.isEmpty()) System.out.println("완료된 주문이 없습니다\n");
+        for (int i = completedOrder.size()-1; i>=0 &&i >completedOrder.size()-4; i--) {
+            completedOrder.get(i).showData();
+        }
+        System.out.println("---------------------------------------------------");
+        System.out.println("[ 대기 중인 모든 주문 ]");
+        for (int i=0; i<orderData.size();i++){
+            orderData.get(i).showData();
+        }
+        System.out.println("\n1.돌아가기");
+        sc.nextInt();
+    }
 
 }

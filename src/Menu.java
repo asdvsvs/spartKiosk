@@ -1,6 +1,4 @@
-
 import java.util.*;
-
 
 public class Menu {
     String menuName;
@@ -57,14 +55,16 @@ public class Menu {
         System.out.println("아래 메뉴판을 보시고 메뉴를 골라 입력해주세요.\n");
         System.out.println("[ 스파르타 메뉴 ]");
         for (int i = 0; i < menus.get("Main").size(); i++) {
-            System.out.printf("%d %s  |  %s\n", menuNum++, menus.get("Main").get(i).getMenuName(), menus.get("Main").get(i).getExplanation());
+            System.out.printf("%d %-10s  |  %s\n", menuNum++, menus.get("Main").get(i).getMenuName(), menus.get("Main").get(i).getExplanation());
         }
         System.out.println("\n[ 오더 메뉴 ]");
         for (int i = 0; i < menus.get("Order").size(); i++) {
-            System.out.printf("%d %s  |  %s\n", menuNum++, menus.get("Order").get(i).getMenuName(), menus.get("Order").get(i).getExplanation());
+            System.out.printf("%d %-10s  |  %s\n", menuNum++, menus.get("Order").get(i).getMenuName(), menus.get("Order").get(i).getExplanation());
         }
         System.out.println();
-        System.out.println("(0.총 판매), (-1. 키오스크 끄기), (-2. 상품생성 ), (-3. 상품삭제), (-4. id로 상품삭제)");
+
+        System.out.println("(0.총 판매), (-1. 키오스크 끄기), (-2. 관리자 메뉴 ), (-3. 주문 현황 )");
+
         System.out.print("메뉴 번호 입력 : ");
     }
 
