@@ -63,7 +63,7 @@ public class Menu {
         }
         System.out.println();
 
-        System.out.println("(0.총 판매), (-1. 키오스크 끄기), (-2. 관리자 메뉴 )");
+        System.out.println("(0.총 판매), (-1. 키오스크 끄기), (-2. 관리자 메뉴 ), (-3. 주문 현황 )");
 
         System.out.print("메뉴 번호 입력 : ");
     }

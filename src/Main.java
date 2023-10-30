@@ -15,7 +15,7 @@ public class Main {
             menu.menuScreen();
             inputNum = sc.nextInt();
 
-            while (inputNum < -2 || inputNum > Menu.menuMapSize) {
+            while (inputNum < -3 || inputNum > Menu.menuMapSize) {
                 Menu.numError();
                 inputNum = sc.nextInt();
             }
@@ -26,27 +26,19 @@ public class Main {
                     managerInputNum = manager.managerScreen();
                 }
                 switch (managerInputNum) {
-                    case 0:
-                        break;
-//            case 1 : 대기주문목록 출력
-//            case 2 : 완료주문목록 출력
-                    case 3:
-                        menu.createMenu(menu, product);
-                        break;
-                    case 4:
-                        manager.deleteProductById(menu, product);
-                        break;
+                    case 0: break;
+                    case 1: order.orderData(); break ;
+                    case 2 : order.completedData(); break ;
+                    case 3: menu.createMenu(menu, product);break;
+                    case 4: manager.deleteProductById(menu, product);break;
                 }
             }
             else {
                 switch (inputNum) {
-                    case 0:
-                        order.showTotalSale();
-                        break;
-                    case -1:
-                        break Loop;
-                    default:
-                        menu.selectMenu(inputNum, Menu.menuMapSize, menu, product, order);
+                    case 0: order.showTotalSale();break;
+                    case -1: break Loop;
+                    case -3 : order.showOrderStatus();break;
+                    default: menu.selectMenu(inputNum, Menu.menuMapSize, menu, product, order);
                 }
             }
         }

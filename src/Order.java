@@ -2,30 +2,27 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class Order extends Product {
-    LocalDateTime orderDateTime = LocalDateTime.now(); //주문 완료 시간
+    LocalDateTime orderDateTime;
     LocalDateTime completedDateTime =  LocalDateTime.now(); //완료 처리 시간
     static float totalOrderPrice;
     static float totalSalePrice;
-    static float totalPrices; // 주문의 총 금액을 저장하여 저장데이터로 옮겨주는 정적 변수
+    float totalPrices; // 주문의 총 금액을 저장하여 저장데이터로 옮겨주는 정적 변수
     static float completedTotalPrices; // 주문데이터 총금액을 저장하여 완료데이터로 옮겨주는 정적 변수
     static int orderNum = 1;
-    static int orderDateNum;
+    int orderDateNum;
     static int completedNum;
 
     static ArrayList<String> orders = new ArrayList<>();
     static ArrayList<String> tempOrders = new ArrayList<>();
     static ArrayList<String> totalOrders = new ArrayList<>();
-    static ArrayList<String> orderDatas = new ArrayList<>(); //주문데이터 목록을 저장하는 동적 배열
+    ArrayList<String> orderDatas = new ArrayList<>(); //주문데이터 목록을 저장하는 동적 배열
     static ArrayList<String> completedDatas = new ArrayList<>();//완료데이터 목록을 저장하는 동적 배열
-    static ArrayList<String> orderDataList = new ArrayList<>(); // 주문 데이터를 저장하는 ArrayList
 
-    static ArrayList<Order> orderList = new ArrayList<>();
-    static ArrayList<String> completedDataList = new ArrayList<>(); // 주문 데이터를 저장하는 ArrayList
     Scanner sc = new Scanner(System.in);
     static HashMap<String, Integer> menuCnt = new HashMap<>();
     String orderRequest; // 주문 요청 사항을 저장하는 변수
-    String completedRequest; // 주문 요청 사항을 저장하는 변수 완료데이터쪽
-
+    List<OrderData> orderData = new ArrayList<>();
+    List<OrderData> completedOrder = new ArrayList<>();
     public Order() {
     }
 
@@ -86,14 +83,13 @@ public class Order extends Product {
             } catch (Exception e) {
                 System.out.println("에러" + e);
             }
+            orderDateTime = LocalDateTime.now();
+            orderData.add(new OrderData(orderNum, tempOrders, totalOrderPrice, orderRequest, orderDateTime));
             orders.clear();
-            orderDateNum += orderNum;
             orderNum++;
             totalOrders.addAll(tempOrders);
             totalSalePrice += totalOrderPrice;
-            totalPrices += totalOrderPrice;//새로 만든 주문데이터에 가격 추가
             totalOrderPrice = 0;
-            orderDatas.addAll(tempOrders);//새로 만든 주문데이터 메서드에 추가
             menuCnt.clear();
             tempOrders.clear();
         }
@@ -127,45 +123,44 @@ public class Order extends Product {
     }
 
     public void orderData() {
-        System.out.println("---------------------------------------------------");
-        OrderData orderData = new OrderData(orderDateNum, orderDatas, totalPrices, orderRequest, orderDateTime);
-//        orderDataList.add(String.valueOf(orderData));
-//        for (String s : orderDataList){
-//                System.out.println(s);
-//        }
-        orderList.add(new Order());
-        for (Order s : orderList){
-            System.out.println(s);
+        for (int i=0; i<orderData.size();i++){
+            System.out.println("---------------------------------------------------");
+            System.out.println("[ 대기 주문 목록 ]");
+            orderData.get(i).showData();
         }
-
-
-        System.out.println("0.돌아가기");
-        System.out.println("1.주문완료 ");
-        int num = sc.nextInt();
-        if (num == 1) {
-            completedNum += orderDateNum;
-            completedDatas.addAll(orderDatas);
-            completedTotalPrices += totalPrices;
-            completedRequest += orderRequest;
-            orderDataList.remove(0);
-            //초기화
-            orderDateNum = 0;
-            orderDatas.clear();
-            totalPrices = 0;
-            orderRequest = "";
-
+        System.out.println("\n0.돌아가기");
+        System.out.println("1.맨위에 주문 완료처리 ");
+        if (sc.nextInt() == 1) {
+            completedOrder.add(orderData.get(0));
+            orderData.remove(0);
         }
     }
 
     public void completedData() {
         System.out.println("---------------------------------------------------");
-        CompletedData completedData = new CompletedData(completedNum,completedDatas,completedTotalPrices, orderRequest, orderDateTime,completedDateTime);
-        completedDataList.add(String.valueOf(completedData));
-        System.out.println(completedDataList);
-
-        System.out.println("1.돌아가기");
+        System.out.println("[ 완료 주문 목록 ]");
+        for (int i=0; i<completedOrder.size();i++){
+            System.out.println("*******        *******");
+            completedOrder.get(i).showData();
+        }
+        System.out.println("\n1.돌아가기");
         sc.nextInt();
+    }
 
+    public void showOrderStatus() {
+        System.out.println("---------------------------------------------------");
+        System.out.println("[ 최근 완료 주문 ]");
+        if(completedOrder.isEmpty()) System.out.println("완료된 주문이 없습니다\n");
+        for (int i = completedOrder.size()-1; i>=0 &&i >completedOrder.size()-4; i--) {
+            completedOrder.get(i).showData();
+        }
+        System.out.println("---------------------------------------------------");
+        System.out.println("[ 대기 중인 모든 주문 ]");
+        for (int i=0; i<orderData.size();i++){
+            orderData.get(i).showData();
+        }
+        System.out.println("\n1.돌아가기");
+        sc.nextInt();
     }
 
 }
